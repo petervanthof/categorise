@@ -1,54 +1,44 @@
 import {Component, OnInit} from '@angular/core';
-import {Label} from '../label.model';
+import {Category} from '../category.model';
 
 @Component({
-  selector: 'app-label-list',
-  templateUrl: './label-list.component.html',
-  styleUrls: ['./label-list.component.css']
+  selector: 'app-category-list',
+  templateUrl: './category-list.component.html',
+  styleUrls: ['./category-list.component.css']
 })
-export class LabelListComponent {
+export class CategoryListComponent {
 
-  labels: Label[];
+  categories: Category[];
 
-  selectedLabel: Label;
+  selectedCategory: Category;
 
   constructor() {
-    //    this.labels = [
-    //      'StateOfTrance',
-    //      'GroupTherapy',
-    //      'Fanfare',
-    //      'CorstensCountdown',
-    //      'ArminVanBuuren',
-    //      'Above&Beyond',
-    //      'ThomasGold',
-    //      'Ferry Corsten'];
-    this.labels = [
-      new Label('StateOfTrance', [
+    this.categories = [
+      new Category('StateOfTrance', [
         'https://www.1001tracklists.com/track/2740pn55/safri-duo-played-a-live-nwyr-willem-de-roo-remix/index.html',
         'https://www.beatport.com/release/sunny-days-club-mix/2052374',
         'https://www.1001tracklists.com/track/2upj62w5/alpha-9-higher-place/index.html']),
-      new Label('GroupTherapy', [
+      new Category('GroupTherapy', [
         'https://www.1001tracklists.com/track/1qd4y1xx/virtual-self-ghost-voices/index.html',
         'https://www.1001tracklists.com/track/19c5b9pp/gabriel-dresden-only-road-cosmic-gate-remix/index.html',
         'https://www.1001tracklists.com/track/16kvgbt5/above-beyond-northern-soul-nwyr-remix/index.html']),
-      new Label('Fanfare', [
+      new Category('Fanfare', [
         'https://www.1001tracklists.com/track/1p163up/coldplay-one-republic-otto-knows-fix-you-vs.-apologize-vs.-million-voices-thomas-gold-bootleg/index.html',
         'https://www.1001tracklists.com/track/2gkcp0wx/marcus-schossow-new_id-ada-first-day-extended-remix/index.html',
         'https://www.1001tracklists.com/track/1hrpklrp/deniz-koyu-thomas-gold-never-alone/index.html'])];
   }
 
-  addLabel(label: HTMLInputElement, link: HTMLInputElement): boolean {
-    //    this.articles.push(new Article(title.value, link.value, 0));
-    this.labels.push(new Label(label.value, [link.value]));
+  addCategory(category: HTMLInputElement, item: HTMLInputElement): boolean {
+    this.categories.push(new Category(category.value, [item.value]));
 
-    label.value = '';
-    link.value = '';
+    category.value = '';
+    item.value = '';
 
     return false;
   }
 
-  setSelectedLabel(label: Label): boolean {
-    this.selectedLabel = label;
+  setSelectedCategory(category: Category): boolean {
+    this.selectedCategory = category;
 
     return false;
   }

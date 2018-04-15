@@ -7,13 +7,13 @@
 	</div -->
 
 	<div class="field">
-		<label>Link</label> <input name="link" id="link" #newlink>
+		<label>Item</label> <input name="item" id="item" #newitem>
 	</div>
 	<div class="field">
-		<label>Label</label> <input name="label" id="label" #newlabel>
+		<label>Category</label> <input name="category" id="category" #newcategory>
 	</div>
 
-	<button (click)="addLabel(newlabel, newlink)"
+	<button (click)="addCategory(newcategory, newitem)"
 		class="ui right floated button">Submit</button>
 </form>
 
@@ -22,15 +22,15 @@
 		<div class="four wide column">
 			<div class="ui segment">
 				<div class="ui list">
-					<div class="item" *ngFor="let label of labels">
-						<button (click)="setSelectedLabel(label)" class="ui button">{{label.name}}</button>
+					<div class="item" *ngFor="let category of categories">
+						<button (click)="setSelectedCategory(category)" class="ui button">{{category.name}}</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="twelve wide column">
 			<div class="ui segment">
-				<app-label-links [label]="selectedLabel"></app-label-links>
+				<app-item-list [category]="selectedCategory"></app-item-list>
 			</div>
 		</div>
 	</div>

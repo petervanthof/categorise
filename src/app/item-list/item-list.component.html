@@ -1,0 +1,7 @@
+<div *ngIf="category">
+	<div class="ui list">
+		<div class="item" *ngFor="let item of category.items">
+			<a class="ui button" href="{{item}}" target="_blank">{{item}}</a>
+		</div>
+	</div>
+</div>
