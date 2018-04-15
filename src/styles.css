@@ -1,0 +1,9 @@
+@import './assets/vendor/semantic.min.css';
+
+form.form:after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}

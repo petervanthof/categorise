@@ -1,0 +1,37 @@
+<form class="ui large form segment">
+	<!-- div class="ui labeled input">
+		<div class="ui label">Link:</div> <input name="link" id="link" #newlink>
+	</div>
+	<div class="ui labeled input">
+		<div class="ui label">Label:</div> <input name="label" id="label" #newlabel>
+	</div -->
+
+	<div class="field">
+		<label>Link</label> <input name="link" id="link" #newlink>
+	</div>
+	<div class="field">
+		<label>Label</label> <input name="label" id="label" #newlabel>
+	</div>
+
+	<button (click)="addLabel(newlabel, newlink)"
+		class="ui right floated button">Submit</button>
+</form>
+
+<div class="ui grid">
+	<div class="stretched row">
+		<div class="four wide column">
+			<div class="ui segment">
+				<div class="ui list">
+					<div class="item" *ngFor="let label of labels">
+						<button (click)="setSelectedLabel(label)" class="ui button">{{label.name}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="twelve wide column">
+			<div class="ui segment">
+				<app-label-links [label]="selectedLabel"></app-label-links>
+			</div>
+		</div>
+	</div>
+</div>
