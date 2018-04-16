@@ -14,18 +14,26 @@ export class CategoryListComponent {
 
   constructor() {
     this.categories = [
-      new Category('StateOfTrance', [
-        'https://www.1001tracklists.com/track/2740pn55/safri-duo-played-a-live-nwyr-willem-de-roo-remix/index.html',
-        'https://www.beatport.com/release/sunny-days-club-mix/2052374',
-        'https://www.1001tracklists.com/track/2upj62w5/alpha-9-higher-place/index.html']),
-      new Category('GroupTherapy', [
-        'https://www.1001tracklists.com/track/1qd4y1xx/virtual-self-ghost-voices/index.html',
-        'https://www.1001tracklists.com/track/19c5b9pp/gabriel-dresden-only-road-cosmic-gate-remix/index.html',
-        'https://www.1001tracklists.com/track/16kvgbt5/above-beyond-northern-soul-nwyr-remix/index.html']),
-      new Category('Fanfare', [
-        'https://www.1001tracklists.com/track/1p163up/coldplay-one-republic-otto-knows-fix-you-vs.-apologize-vs.-million-voices-thomas-gold-bootleg/index.html',
-        'https://www.1001tracklists.com/track/2gkcp0wx/marcus-schossow-new_id-ada-first-day-extended-remix/index.html',
-        'https://www.1001tracklists.com/track/1hrpklrp/deniz-koyu-thomas-gold-never-alone/index.html'])];
+      new Category('Virtual Self', [
+        'Ghost Voices']),
+      new Category('Huem', [
+        'Your Smile (Original Mix)']),
+      new Category('Trance', [
+        'Your Smile (Original Mix)']),
+      new Category('2018', [
+        'Your Smile (Original Mix)',
+        'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
+      new Category('Gabriel & Dresden', [
+        'Arcadia',
+        'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
+      new Category('Dance/Electro', [
+        'Ghost Voices',
+        'Arcadia',
+        'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
+      new Category('2005', [
+        'Arcadia']),
+      new Category('2017', [
+        'Ghost Voices'])];
   }
 
   addCategory(category: HTMLInputElement, item: HTMLInputElement): boolean {
