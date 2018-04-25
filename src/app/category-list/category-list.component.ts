@@ -1,6 +1,6 @@
-import {Component, OnInit, NgModule} from '@angular/core';
+import {Component, OnInit, NgModule, ViewChild} from '@angular/core';
 import {Category} from '../category.model';
-import {ITreeOptions} from 'angular-tree-component';
+import {ITreeOptions, TreeComponent} from 'angular-tree-component';
 
 @Component({
   selector: 'app-category-list',
@@ -9,66 +9,42 @@ import {ITreeOptions} from 'angular-tree-component';
 })
 export class CategoryListComponent {
 
-  categories: Category[];
+  @ViewChild(TreeComponent)
+  private tree: TreeComponent;
 
-  selectedCategory: Category;
+  private counter = 0;
 
   options: ITreeOptions = {
     allowDrag: true,
     allowDrop: true
   };
 
-  nodes = [
-    {
-      id: 1,
-      name: 'root1',
-      children: [
-        {id: 2, name: 'child1'},
-        {id: 3, name: 'child2'}
-      ]
-    },
-    {
-      id: 4,
-      name: 'root2',
-      children: [
-        {id: 5, name: 'child2.1'},
-        {
-          id: 6,
-          name: 'child2.2',
-          children: [
-            {id: 7, name: 'subsub'}
-          ]
-        }
-      ]
-    }
-  ];
+  categories: Category[];
+
+  selectedCategory: Category;
 
   constructor() {
     this.categories = [
-      new Category('Virtual Self', [
-        'Ghost Voices']),
-      new Category('Huem', [
-        'Your Smile (Original Mix)']),
-      new Category('Trance', [
-        'Your Smile (Original Mix)']),
-      new Category('2018', [
-        'Your Smile (Original Mix)',
-        'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
-      new Category('Gabriel & Dresden', [
-        'Arcadia',
-        'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
-      new Category('Dance/Electro', [
-        'Ghost Voices',
-        'Arcadia',
-        'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
-      new Category('2005', [
-        'Arcadia']),
-      new Category('2017', [
-        'Ghost Voices'])];
+      this.createCategory('Artist', [
+        this.createCategory('Virtual Self', [], ['Ghost Voices']),
+        this.createCategory('Huem', [], ['Your Smile (Original Mix)']),
+        this.createCategory('Gabriel & Dresden', [], ['Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
+      this.createCategory('Genre', [
+        this.createCategory('Trance', [], ['Your Smile (Original Mix)']),
+        this.createCategory('Dance/Electro', [], ['Ghost Voices', 'Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
+      this.createCategory('Year', [
+        this.createCategory('2018', [], ['Your Smile (Original Mix)', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
+        this.createCategory('2005', [], ['Arcadia']),
+        this.createCategory('2017', [], ['Ghost Voices'])], [])];
+  }
+
+  private createCategory(name: string, children: Category[], items: string[]): Category {
+    return new Category(this.counter++, name, children, items);
   }
 
   addCategory(category: HTMLInputElement, item: HTMLInputElement): boolean {
-    this.categories.push(new Category(category.value, [item.value]));
+    this.categories.push(new Category(this.counter++, category.value, [], [item.value]));
+    this.tree.treeModel.update();
 
     category.value = '';
     item.value = '';
@@ -76,8 +52,8 @@ export class CategoryListComponent {
     return false;
   }
 
-  setSelectedCategory(category: Category): boolean {
-    this.selectedCategory = category;
+  setSelectedCategory(event): boolean {
+    this.selectedCategory = event.node.data;
 
     return false;
   }
