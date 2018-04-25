@@ -5,7 +5,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {CategoryListComponent} from './category-list/category-list.component';
 import {ItemListComponent} from './item-list/item-list.component';
-
+import {TreeModule} from 'angular-tree-component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import {ItemListComponent} from './item-list/item-list.component';
     ItemListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    TreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

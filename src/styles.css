@@ -1,4 +1,5 @@
 @import './assets/vendor/semantic.min.css';
+@import '~angular-tree-component/dist/angular-tree-component.css';
 
 form.form:after {
   content: '';
@@ -6,4 +7,8 @@ form.form:after {
   height: 0;
   clear: both;
   visibility: hidden;
+}
+
+.toggle-children-placeholder {
+    width: 13px;
 }
