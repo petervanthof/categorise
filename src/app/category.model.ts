@@ -1,6 +1,6 @@
 export class Category {
 
-  constructor(public name: string, public items: string[]) {
+  constructor(public id: number, public name: String, public children: Category[], public items: string[]) {
   }
 
 }

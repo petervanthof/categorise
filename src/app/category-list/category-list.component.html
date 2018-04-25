@@ -1,11 +1,4 @@
 <form class="ui large form segment">
-	<!-- div class="ui labeled input">
-		<div class="ui label">Link:</div> <input name="link" id="link" #newlink>
-	</div>
-	<div class="ui labeled input">
-		<div class="ui label">Label:</div> <input name="label" id="label" #newlabel>
-	</div -->
-
 	<div class="field">
 		<label>Item</label> <input name="item" id="item" #newitem>
 	</div>
@@ -22,7 +15,7 @@
 	<div class="stretched row">
 		<div class="four wide column">
 			<div class="ui segment">
-				<tree-root [nodes]="nodes" [options]="options"> <ng-template
+				<tree-root [nodes]="categories" [options]="options" (activate)="setSelectedCategory($event)"> <ng-template
 					#treeNodeWrapperTemplate let-node let-index="index">
 				<div class="node-wrapper"
 					[style.padding-left]="node.getNodePadding()">
