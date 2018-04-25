@@ -10,7 +10,8 @@
 		<label>Item</label> <input name="item" id="item" #newitem>
 	</div>
 	<div class="field">
-		<label>Category</label> <input name="category" id="category" #newcategory>
+		<label>Category</label> <input name="category" id="category"
+			#newcategory>
 	</div>
 
 	<button (click)="addCategory(newcategory, newitem)"
@@ -21,11 +22,26 @@
 	<div class="stretched row">
 		<div class="four wide column">
 			<div class="ui segment">
-				<div class="ui list">
-					<div class="item" *ngFor="let category of categories">
-						<button (click)="setSelectedCategory(category)" class="ui button">{{category.name}}</button>
+				<tree-root [nodes]="nodes" [options]="options"> <ng-template
+					#treeNodeWrapperTemplate let-node let-index="index">
+				<div class="node-wrapper"
+					[style.padding-left]="node.getNodePadding()">
+					<div style="margin-top: 7px">
+						<tree-node-expander [node]="node"></tree-node-expander>
+					</div>
+					<div class="ui node-content-wrapper button"
+						[class.node-content-wrapper-active]="node.isActive"
+						[class.node-content-wrapper-focused]="node.isFocused"
+						(click)="node.mouseAction('click', $event)"
+						(dblclick)="node.mouseAction('dblClick', $event)"
+						(contextmenu)="node.mouseAction('contextMenu', $event)"
+						(treeDrop)="node.onDrop($event)" [treeAllowDrop]="node.allowDrop"
+						[treeDrag]="node" [treeDragEnabled]="node.allowDrag()">
+
+						<tree-node-content [node]="node" [index]="index"></tree-node-content>
 					</div>
 				</div>
+				</ng-template> </tree-root>
 			</div>
 		</div>
 		<div class="twelve wide column">
