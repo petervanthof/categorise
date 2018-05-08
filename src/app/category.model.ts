@@ -9,6 +9,12 @@ export class Category {
     }
   }
 
+  removeItem(item: string) {
+    const index = this.items.indexOf(item);
+
+    this.items.splice(index, 1);
+  }
+
   findCategory(name: string): Category {
     if (this.name === name) {
       return this;

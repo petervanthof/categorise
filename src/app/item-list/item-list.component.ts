@@ -13,4 +13,12 @@ export class ItemListComponent {
 
   constructor() {}
 
+  deleteItem(item: HTMLInputElement): boolean {
+    this.category.removeItem(item.value);
+
+    item.value = '';
+
+    return false;
+  }
+
 }
