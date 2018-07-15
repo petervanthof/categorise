@@ -32,4 +32,21 @@ export class Category {
     return null;
   }
 
+  removeCategory(category: Category): boolean {
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+
+      if (child === category) {
+        this.children.splice(i, 1);
+
+        return true;
+      }
+      if (child.removeCategory(category)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 }
