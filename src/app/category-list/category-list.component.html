@@ -27,7 +27,8 @@
 						[class.node-content-wrapper-focused]="node.isFocused"
 						(click)="node.mouseAction('click', $event)"
 						(dblclick)="node.mouseAction('dblClick', $event)"
-						(contextmenu)="node.mouseAction('contextMenu', $event)"
+						[contextMenu]="basicMenu"
+						[contextMenuSubject]="node.data"
 						(treeDrop)="node.onDrop($event)" [treeAllowDrop]="node.allowDrop"
 						[treeDrag]="node" [treeDragEnabled]="node.allowDrag()">
 
@@ -44,3 +45,9 @@
 		</div>
 	</div>
 </div>
+
+<context-menu>
+  <ng-template contextMenuItem let-item (execute)="deleteCategory($event)">
+    Delete
+  </ng-template>
+</context-menu>

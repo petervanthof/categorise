@@ -1,6 +1,7 @@
 import {Component, OnInit, NgModule, ViewChild} from '@angular/core';
 import {Category} from '../category.model';
 import {ITreeOptions, TreeComponent} from 'angular-tree-component';
+import {ContextMenuComponent} from 'ngx-contextmenu';
 
 @Component({
   selector: 'app-category-list',
@@ -11,6 +12,9 @@ export class CategoryListComponent {
 
   @ViewChild(TreeComponent)
   private tree: TreeComponent;
+
+  @ViewChild(ContextMenuComponent)
+  public basicMenu: ContextMenuComponent;
 
   private counter = 0;
 
@@ -81,6 +85,23 @@ export class CategoryListComponent {
     this.selectedCategory = event.node.data;
 
     return false;
+  }
+
+  deleteCategory(event) {
+    for (let i = 0; i < this.categories.length; i++) {
+      const category = this.categories[i];
+
+      if (category === event.item) {
+        this.categories.splice(i, 1);
+        this.tree.treeModel.update();
+
+        return;
+      } else if (category.removeCategory(event.item)) {
+        this.tree.treeModel.update();
+
+        return;
+      }
+    }
   }
 
 }

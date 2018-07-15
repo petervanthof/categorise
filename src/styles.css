@@ -1,14 +1,88 @@
 @import './assets/vendor/semantic.min.css';
+
 @import '~angular-tree-component/dist/angular-tree-component.css';
 
 form.form:after {
-  content: '';
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
 }
 
 .toggle-children-placeholder {
-    width: 13px;
+	width: 13px;
+}
+
+.ngx-contextmenu .dropdown-menu {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	margin: 1rem 0;
+	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-weight: 400;
+	border: 1px solid rgba(34, 36, 38, .15);
+	border-radius: .28571429rem;
+	min-height: 2.85714286em;
+	display: block;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+	box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+	display: block;
+	padding-left: 0;
+	width: 15rem;
+}
+
+.ngx-contextmenu li {
+	list-style: none;
+	padding-left: 0;
+}
+
+.ngx-contextmenu a {
+	position: relative;
+	vertical-align: middle;
+	line-height: 1;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: .92857143em 1.14285714em;
+	text-transform: none;
+	color: rgba(0, 0, 0, .87);
+	font-weight: 400;
+	-webkit-transition: background .1s ease, color .1s ease,
+		-webkit-box-shadow .1s ease;
+	transition: background .1s ease, color .1s ease, -webkit-box-shadow .1s
+		ease;
+	transition: background .1s ease, box-shadow .1s ease, color .1s ease;
+	transition: background .1s ease, box-shadow .1s ease, color .1s ease,
+		-webkit-box-shadow .1s ease;
+	display: block;
+	background: 0 0;
+	border-top: none;
+	border-right: none
+}
+
+.ngx-contextmenu a:before {
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: rgba(34, 36, 38, .1)
+}
+
+.ngx-contextmenu a:hover {
+	cursor: pointer;
+	background: rgba(0, 0, 0, .03);
+	color: rgba(0, 0, 0, .95)
 }
