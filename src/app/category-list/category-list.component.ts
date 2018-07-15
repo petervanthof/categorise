@@ -59,7 +59,11 @@ export class CategoryListComponent {
     if (!category) {
       category = this.createCategory(name, [], []);
 
-      this.categories.push(category);
+      if (this.selectedCategory) {
+        this.selectedCategory.addCategory(category);
+      } else {
+        this.categories.push(category);
+      }
     }
 
     return category;
