@@ -34,11 +34,11 @@ export class CategoryListComponent {
         this.createCategory('Huem', [], ['Your Smile (Original Mix)']),
         this.createCategory('GabrielDresden', [], ['Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
       this.createCategory('Genre', [
-        this.createCategory('Trance', [], ['Your Smile (Original Mix)']),
+        this.createCategory('DragAndDropMe', [], ['Your Smile (Original Mix)']),
         this.createCategory('DanceElectro', [], ['Ghost Voices', 'Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
       this.createCategory('Year', [
         this.createCategory('2018', [], ['Your Smile (Original Mix)', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
-        this.createCategory('2005', [], ['Arcadia']),
+        this.createCategory('RightClickMe', [], ['Arcadia']),
         this.createCategory('2017', [], ['Ghost Voices'])], [])];
   }
 
@@ -98,10 +98,12 @@ export class CategoryListComponent {
       if (category === event.item) {
         this.categories.splice(i, 1);
         this.tree.treeModel.update();
+        this.selectedCategory = null;
 
         return;
       } else if (category.removeCategory(event.item)) {
         this.tree.treeModel.update();
+        this.selectedCategory = null;
 
         return;
       }
