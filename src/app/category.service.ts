@@ -1,20 +1,20 @@
 import {Category} from './category.model';
 import {Injectable} from '@angular/core';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class CategoryService {
 
-  private categories: Category[];
+  selectedCategory: BehaviorSubject<Category>;
 
   private root: Category;
-
-  private selectedCategory: Category;
 
   private categoryId: number;
 
   constructor() {
+    this.selectedCategory = new BehaviorSubject<Category>(null);
     this.categoryId = 0;
-    this.categories = [
+    this.root = this.createCategory('root', [
       this.createCategory('Artist', [
         this.createCategory('VirtualSelf', [], ['Ghost Voices']),
         this.createCategory('Huem', [], ['Your Smile (Original Mix)']),
@@ -25,21 +25,15 @@ export class CategoryService {
       this.createCategory('Year', [
         this.createCategory('2018', [], ['Your Smile (Original Mix)', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
         this.createCategory('RightClickMe', [], ['Arcadia']),
-        this.createCategory('2017', [], ['Ghost Voices'])], [])];
-
-    this.root = this.createCategory('root', this.categories, []);
+        this.createCategory('2017', [], ['Ghost Voices'])], [])], []);
   }
 
-  getCategories(): Category[] {
-    return this.root.children;
-  }
-
-  getSelectedCategory(): Category {
-    return this.selectedCategory;
+  getCategories(): Observable<Category[]> {
+    return Observable.of(this.root.children);
   }
 
   setSelectedCategory(category: Category): void {
-    this.selectedCategory = category;
+    this.selectedCategory.next(category);
   }
 
   findOrCreateCategory(name: string): Category {
@@ -48,10 +42,10 @@ export class CategoryService {
     if (!category) {
       category = this.createCategory(name, [], []);
 
-      if (this.selectedCategory) {
-        this.selectedCategory.addCategory(category);
+      if (this.selectedCategory.getValue()) {
+        this.selectedCategory.getValue().addCategory(category);
       } else {
-        this.categories.push(category);
+        this.root.addCategory(category);
       }
     }
 

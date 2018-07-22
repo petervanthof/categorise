@@ -7,12 +7,17 @@ import {Component, OnInit, Input} from '@angular/core';
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css']
 })
-export class ItemListComponent {
+export class ItemListComponent implements OnInit {
+  category: Category;
 
-  constructor(public categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService) {}
+
+  ngOnInit(): void {
+    this.categoryService.selectedCategory.subscribe(c => this.category = c);
+  }
 
   deleteItem(item: HTMLInputElement): boolean {
-    this.categoryService.getSelectedCategory().removeItem(item.value);
+    this.category.removeItem(item.value);
 
     item.value = '';
 
