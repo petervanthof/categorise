@@ -36,7 +36,7 @@ export class Category {
     this.children.push(category);
   }
 
-  removeCategory(category: Category): boolean {
+  deleteCategory(category: Category): boolean {
     for (let i = 0; i < this.children.length; i++) {
       const child = this.children[i];
 
@@ -44,7 +44,7 @@ export class Category {
         this.children.splice(i, 1);
 
         return true;
-      } else if (child.removeCategory(category)) {
+      } else if (child.deleteCategory(category)) {
         return true;
       }
     }

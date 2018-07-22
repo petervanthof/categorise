@@ -1,6 +1,6 @@
 import {Component, OnInit, NgModule, ViewChild} from '@angular/core';
 import {Category} from '../category.model';
-import {CategoryService} from '../service/category.service';
+import {CategoryService} from '../category.service';
 import {ITreeOptions, TreeComponent} from 'angular-tree-component';
 import {ContextMenuComponent} from 'ngx-contextmenu';
 

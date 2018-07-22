@@ -1,10 +1,12 @@
-import {Category} from '../category.model';
+import {Category} from './category.model';
 import {Injectable} from '@angular/core';
 
 @Injectable()
 export class CategoryService {
 
   private categories: Category[];
+
+  private root: Category;
 
   private selectedCategory: Category;
 
@@ -24,10 +26,12 @@ export class CategoryService {
         this.createCategory('2018', [], ['Your Smile (Original Mix)', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
         this.createCategory('RightClickMe', [], ['Arcadia']),
         this.createCategory('2017', [], ['Ghost Voices'])], [])];
+
+    this.root = this.createCategory('root', this.categories, []);
   }
 
   getCategories(): Category[] {
-    return this.categories;
+    return this.root.children;
   }
 
   getSelectedCategory(): Category {
@@ -39,7 +43,7 @@ export class CategoryService {
   }
 
   findOrCreateCategory(name: string): Category {
-    let category = this.findCategory(name);
+    let category = this.root.findCategory(name);
 
     if (!category) {
       category = this.createCategory(name, [], []);
@@ -54,35 +58,12 @@ export class CategoryService {
     return category;
   }
 
-  private findCategory(name: string): Category {
-    for (let i = 0; i < this.categories.length; i++) {
-      const category = this.categories[i].findCategory(name);
-
-      if (category) {
-        return category;
-      }
-    }
-
-    return null;
-  }
-
   private createCategory(name: string, children: Category[], items: string[]): Category {
     return new Category(this.categoryId++, name, children, items);
   }
 
   deleteCategory(category: Category) {
-    for (let i = 0; i < this.categories.length; i++) {
-      if (this.categories[i] === category) {
-        this.categories.splice(i, 1);
-        this.selectedCategory = null;
-
-        return;
-      } else if (this.categories[i].removeCategory(category)) {
-        this.selectedCategory = null;
-
-        return;
-      }
-    }
+    this.root.deleteCategory(category);
   }
 
 }
