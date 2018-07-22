@@ -1,5 +1,6 @@
 import {Component, OnInit, NgModule, ViewChild} from '@angular/core';
 import {Category} from '../category.model';
+import {CategoryService} from '../service/category.service';
 import {ITreeOptions, TreeComponent} from 'angular-tree-component';
 import {ContextMenuComponent} from 'ngx-contextmenu';
 
@@ -8,8 +9,7 @@ import {ContextMenuComponent} from 'ngx-contextmenu';
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css']
 })
-export class CategoryListComponent {
-
+export class CategoryListComponent implements OnInit {
   @ViewChild(TreeComponent)
   private tree: TreeComponent;
 
@@ -25,89 +25,32 @@ export class CategoryListComponent {
 
   categories: Category[];
 
-  selectedCategory: Category;
+  constructor(private categoryService: CategoryService) {}
 
-  constructor() {
-    this.categories = [
-      this.createCategory('Artist', [
-        this.createCategory('VirtualSelf', [], ['Ghost Voices']),
-        this.createCategory('Huem', [], ['Your Smile (Original Mix)']),
-        this.createCategory('GabrielDresden', [], ['Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
-      this.createCategory('Genre', [
-        this.createCategory('DragAndDropMe', [], ['Your Smile (Original Mix)']),
-        this.createCategory('DanceElectro', [], ['Ghost Voices', 'Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
-      this.createCategory('Year', [
-        this.createCategory('2018', [], ['Your Smile (Original Mix)', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
-        this.createCategory('RightClickMe', [], ['Arcadia']),
-        this.createCategory('2017', [], ['Ghost Voices'])], [])];
+  ngOnInit(): void {
+    this.categories = this.categoryService.getCategories();
   }
 
-  addCategories(categories: HTMLInputElement, item: HTMLInputElement): boolean {
-    categories.value.split(' ').forEach(category => this.findOrCreateCategory(category).addItem(item.value));
+  addCategories(categoriesString: HTMLInputElement, itemString: HTMLInputElement): boolean {
+    categoriesString.value.split(' ').forEach(category => this.categoryService.findOrCreateCategory(category).addItem(itemString.value));
 
     this.tree.treeModel.update();
 
-    categories.value = '';
-    item.value = '';
+    categoriesString.value = '';
+    itemString.value = '';
 
     return false;
   }
 
-  private findOrCreateCategory(name: string): Category {
-    let category = this.findCategory(name);
-
-    if (!category) {
-      category = this.createCategory(name, [], []);
-
-      if (this.selectedCategory) {
-        this.selectedCategory.addCategory(category);
-      } else {
-        this.categories.push(category);
-      }
-    }
-
-    return category;
-  }
-
-  private findCategory(name: string): Category {
-    for (let i = 0; i < this.categories.length; i++) {
-      const category = this.categories[i].findCategory(name);
-
-      if (category) {
-        return category;
-      }
-    }
-
-    return null;
-  }
-
-  private createCategory(name: string, children: Category[], items: string[]): Category {
-    return new Category(this.counter++, name, children, items);
-  }
-
   setSelectedCategory(event): boolean {
-    this.selectedCategory = event.node.data;
+    this.categoryService.setSelectedCategory(event.node.data);
 
     return false;
   }
 
   deleteCategory(event) {
-    for (let i = 0; i < this.categories.length; i++) {
-      const category = this.categories[i];
-
-      if (category === event.item) {
-        this.categories.splice(i, 1);
-        this.tree.treeModel.update();
-        this.selectedCategory = null;
-
-        return;
-      } else if (category.removeCategory(event.item)) {
-        this.tree.treeModel.update();
-        this.selectedCategory = null;
-
-        return;
-      }
-    }
+    this.categoryService.deleteCategory(event.item);
+    this.tree.treeModel.update();
   }
 
 }

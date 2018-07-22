@@ -1,4 +1,5 @@
 import {Category} from '../category.model';
+import {CategoryService} from '../service/category.service';
 import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
@@ -8,13 +9,10 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class ItemListComponent {
 
-  @Input()
-  category: Category;
-
-  constructor() {}
+  constructor(public categoryService: CategoryService) {}
 
   deleteItem(item: HTMLInputElement): boolean {
-    this.category.removeItem(item.value);
+    this.categoryService.getSelectedCategory().removeItem(item.value);
 
     item.value = '';
 

@@ -1,10 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-
 import {AppComponent} from './app.component';
 import {CategoryListComponent} from './category-list/category-list.component';
 import {ItemListComponent} from './item-list/item-list.component';
+import {CategoryService} from './service/category.service';
 import {TreeModule} from 'angular-tree-component';
 import {ContextMenuModule} from 'ngx-contextmenu';
 
@@ -19,7 +19,9 @@ import {ContextMenuModule} from 'ngx-contextmenu';
     TreeModule,
     ContextMenuModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    CategoryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
