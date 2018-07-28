@@ -1,14 +1,14 @@
 
-# Categorize App
-The Categorize App enables you to assign categories to items, organize the categories in a tree and browse through the items via the category tree.
+# Categorise App
+The Categorise App enables you to assign categories to items, organize the categories in a tree and browse through the items via the category tree.
 ## Demo
 [https://petervanthof.github.io/categorise/](https://petervanthof.github.io/categorise/)
 ## Background
 I have build this app primarily to get hands-on experience with Angular. In my opinion, doing some tutorials or reading a book about a language or framework isn't enough: you should build an application in the language or with the framework yourself to really prove to yourself you understand (the basics of) the language or framework.
 
-The Categorize App started off as a bookmark manager where you could assign multiple labels to a single bookmark, because I was missing this functionality in the default Chrome bookmark manager.
+The Categorise App started off as a bookmark manager where you could assign multiple labels to a single bookmark, because I was missing this functionality in the default Chrome bookmark manager.
 
-Along the way, I generalized the application to a generic Categorize App, which enables you to assign categories to items, organize the categories in a tree and browse through the items via the category tree.
+Along the way, I generalized the application to a generic Categorise App, which enables you to assign categories to items, organize the categories in a tree and browse through the items via the category tree.
 ## Frameworks / Components Used
 The application uses the following frameworks / components:
 * Angular (5)
