@@ -1,35 +1,37 @@
 import {Category} from './category.model';
-import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
+import {Injectable, OnInit} from '@angular/core';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
+import 'rxjs/add/operator/map';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable()
 export class CategoryService {
 
   selectedCategory: BehaviorSubject<Category>;
 
+  private categoryUrl: string;
+
   private root: Category;
 
   private categoryId: number;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.selectedCategory = new BehaviorSubject<Category>(null);
-    this.categoryId = 0;
-    this.root = this.createCategory('root', [
-      this.createCategory('Artist', [
-        this.createCategory('VirtualSelf', [], ['Ghost Voices']),
-        this.createCategory('Huem', [], ['Your Smile (Original Mix)']),
-        this.createCategory('GabrielDresden', [], ['Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
-      this.createCategory('Genre', [
-        this.createCategory('DragAndDropMe', [], ['Your Smile (Original Mix)']),
-        this.createCategory('DanceElectro', [], ['Ghost Voices', 'Arcadia', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)'])], []),
-      this.createCategory('Year', [
-        this.createCategory('2018', [], ['Your Smile (Original Mix)', 'Only Road (Cosmic Gate Extended Mix) (feat. Sub Teal)']),
-        this.createCategory('RightClickMe', [], ['Arcadia']),
-        this.createCategory('2017', [], ['Ghost Voices'])], [])], []);
+    this.categoryUrl = 'http://localhost:8080/category';
+    this.categoryId = 100;
   }
 
-  getCategories(): Observable<Category[]> {
-    return Observable.of(this.root.children);
+  getCategory(): Observable<Category> {
+    return this.httpClient.get<Category>(this.categoryUrl).map((data: any) => this.root = new Category().deserialize(data));
+  }
+
+  save() {
+    this.httpClient.post<Category>(this.categoryUrl, this.root, httpOptions).subscribe();
   }
 
   setSelectedCategory(category: Category): void {
@@ -53,7 +55,14 @@ export class CategoryService {
   }
 
   private createCategory(name: string, children: Category[], items: string[]): Category {
-    return new Category(this.categoryId++, name, children, items);
+    const category = new Category();
+
+    category.id = this.categoryId++;
+    category.name = name;
+    category.children = children;
+    category.items = items;
+
+    return category;
   }
 
   deleteCategory(category: Category) {

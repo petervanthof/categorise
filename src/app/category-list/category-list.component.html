@@ -8,7 +8,7 @@
 	</div>
 
 	<button (click)="addCategories(newcategories, newitem)"
-		class="ui right floated button">Submit</button>
+		class="ui right floated button">Add</button>
 </form>
 
 <div class="ui grid">
@@ -45,7 +45,8 @@
 		</div>
 	</div>
 </div>
-
+<button class="ui right floated button" style="margin-top: 16px;" (click)="save()">Save</button>
+		
 <context-menu>
   <ng-template contextMenuItem let-item (execute)="deleteCategory($event)">
     Delete

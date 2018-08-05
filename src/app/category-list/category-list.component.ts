@@ -28,7 +28,7 @@ export class CategoryListComponent implements OnInit {
   constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe(c => this.categories = c);
+    this.categoryService.getCategory().subscribe(c => this.categories = c.children);
   }
 
   addCategories(categoriesString: HTMLInputElement, itemString: HTMLInputElement): boolean {
@@ -51,6 +51,10 @@ export class CategoryListComponent implements OnInit {
   deleteCategory(event) {
     this.categoryService.deleteCategory(event.item);
     this.tree.treeModel.update();
+  }
+
+  save() {
+    this.categoryService.save();
   }
 
 }

@@ -1,6 +1,20 @@
 export class Category {
 
-  constructor(public id: number, public name: String, public children: Category[], public items: string[]) {
+  id: number;
+  name: String;
+  children: Category[];
+  items: string[];
+
+  deserialize(data: any) {
+    this.id = data.id;
+    this.name = data.name;
+    this.items = data.items;
+
+    this.children = [];
+
+    data.children.forEach(child => this.children.push(new Category().deserialize(child)));
+
+    return this;
   }
 
   addItem(item: string) {

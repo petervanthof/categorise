@@ -5,6 +5,7 @@ import {AppComponent} from './app.component';
 import {CategoryListComponent} from './category-list/category-list.component';
 import {ItemListComponent} from './item-list/item-list.component';
 import {CategoryService} from './category.service';
+import {HttpClientModule} from '@angular/common/http';
 import {TreeModule} from 'angular-tree-component';
 import {ContextMenuModule} from 'ngx-contextmenu';
 
@@ -17,7 +18,8 @@ import {ContextMenuModule} from 'ngx-contextmenu';
   imports: [
     BrowserModule,
     TreeModule,
-    ContextMenuModule.forRoot()
+    ContextMenuModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     CategoryService
